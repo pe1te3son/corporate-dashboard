@@ -1,5 +1,9 @@
 # Corporate-dashboard
 
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+[![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/01e862928b4847b78b7c0991c6856155)](https://www.codacy.com/app/2010janak2010/corporate-dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pe1te3son/corporate-dashboard&amp;utm_campaign=Badge_Grade)
+
 ( in progress )
 
 ## Prerequisites
@@ -36,7 +40,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 ### Building
 
 * `ember build` (development)
-* `ember build --environment production` (production)
+* `ember b -prod` (production)
 
 ### Deploying
 
