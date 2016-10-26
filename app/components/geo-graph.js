@@ -1,9 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  dataConverter: Ember.inject.service('data-converter'),
+
   didInsertElement () {
     const elId = this.$().attr('id');
     const geoData = this.get('data');
+    const dataArray = this.get('dataConverter').csvToArray(geoData);
     google.charts.load('upcoming', {'packages': ['geochart']});
     google.charts.setOnLoadCallback(drawRegionsMap);
 
