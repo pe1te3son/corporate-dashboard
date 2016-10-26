@@ -6,10 +6,12 @@
       </p>
     </div>
     <div class="dashboard-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-      {{geo-graph
-        class="geo-graph-home-page"
-        data=model
-      }}
+      {{#if dataArray}}
+        {{geo-graph
+          class="geo-graph-home-page"
+          data=dataArray
+        }}
+      {{/if}}
     </div>
   </div>
 </main>
