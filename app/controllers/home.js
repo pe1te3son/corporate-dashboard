@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   dataConverter: Ember.inject.service('data-converter'),
+  numberOfEmployees: 0,
 
   init () {
     Ember.run.schedule('afterRender', () => {
@@ -12,4 +13,13 @@ export default Ember.Controller.extend({
     });
   },
 
+  getNumberOfEmployees (data) {
+    let result = 0;
+    data.forEach((country) => {
+      if (typeof country[1] === 'number') {
+        result += country[1];
+      }
+    });
+    return result;
+  }
 });
