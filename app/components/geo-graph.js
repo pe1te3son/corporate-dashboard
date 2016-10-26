@@ -5,8 +5,10 @@ export default Ember.Component.extend({
   didInsertElement () {
     const elId = this.$().attr('id');
     const geoData = this.get('data');
-    console.log(geoData);
-    if (!geoData) { return; }
+    if (!geoData) {
+      console.error('[geo-graph]: Missing data');
+      return;
+    }
     google.charts.load('upcoming', {'packages': ['geochart']});
     google.charts.setOnLoadCallback(drawRegionsMap);
 
