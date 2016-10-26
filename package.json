@@ -46,7 +46,10 @@
     "semistandard": "^9.1.0"
   },
   "semistandard": {
-    "globals": [],
+    "globals": [
+      "google",
+      "componentHandler"
+    ],
     "ignore": [
       "node_modules",
       "bower_components",

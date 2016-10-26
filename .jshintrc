@@ -2,7 +2,9 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "componentHandler",
+    "google"
   ],
   "browser": true,
   "boss": true,
