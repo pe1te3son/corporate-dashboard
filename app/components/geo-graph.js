@@ -9,7 +9,7 @@ export default Ember.Component.extend({
       console.error('[geo-graph]: Missing data');
       return;
     }
-    google.charts.load('upcoming', {'packages': ['geochart']});
+    google.charts.load('current', {'packages': ['geochart'], mapsApiKey: this.get('apiKey')});
     google.charts.setOnLoadCallback(drawRegionsMap);
 
     function drawRegionsMap () {
