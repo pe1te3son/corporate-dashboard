@@ -4,17 +4,24 @@ export default Ember.Component.extend({
   didInsertElement () {
     const elId = this.$().attr('id');
     const dataArray = this.get('data');
-    google.charts.load("current", {packages: ["corechart"]});
+    console.log(dataArray);
+    google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart () {
-      var data = google.visualization.arrayToDataTable(dataArray);
+      const data = google.visualization.arrayToDataTable([
+        ['head', 'value'],
+        ['20/20/12', 253]
+      ]);
 
-      var options = {
-        title: 'Lengths of dinosaurs, in meters',
-        legend: {position: 'none'},
+      const options = {
+        title: 'Country Populations',
+        legend: { position: 'none' },
+        colors: ['#e7711c'],
+        histogram: { lastBucketPercentile: 5 },
+        vAxis: { scaleType: 'mirrorLog' }
       };
 
-      var chart = new google.visualization.Histogram(document.getElementById(elId));
+      const chart = new google.visualization.Histogram(document.getElementById(elId));
       chart.draw(data, options);
     }
   }
