@@ -1,0 +1,19 @@
+<thead>
+  <tr>
+    <th class="mdl-data-table__cell--non-numeric">Name</th>
+    <th class="mdl-data-table__cell--non-numeric">Email</th>
+    <th class="mdl-data-table__cell--non-numeric">Date</th>
+    <th class="mdl-data-table__cell--non-numeric">Description</th>
+  </tr>
+</thead>
+<tbody>
+  {{log data}}
+  {{#each data as |issue|}}
+    <tr class="issues-data">
+      <td class="mdl-data-table__cell--non-numeric">{{issue.customer_name}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{issue.email}}</td>
+      <td class="mdl-data-table__cell--non-numeric table-date">{{issue.date_submited}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{issue.issue_desc}}</td>
+    </tr>
+  {{/each}}
+</tbody>
