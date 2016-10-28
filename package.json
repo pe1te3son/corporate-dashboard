@@ -43,6 +43,7 @@
     "ember-resolver": "^2.0.3",
     "ember-welcome-page": "^1.0.1",
     "loader.js": "^4.0.1",
+    "moment": "^2.15.2",
     "node-sass": "^3.10.1",
     "semistandard": "^9.1.0"
   },
