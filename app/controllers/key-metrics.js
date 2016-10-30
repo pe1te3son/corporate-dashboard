@@ -1,16 +1,16 @@
 import Ember from 'ember';
-import config from '../config/environment';
 
 export default Ember.Controller.extend({
   dataConverter: Ember.inject.service('data-converter'),
-  number_of_issues: null,
 
-  init () {
-    console.log(config.dashboardAppGoogleApiKey);
-    Ember.run.schedule('afterRender', () => {
-      const issuesPerYear = this.get('model').issues;
-      const formatedIssuesPerYear = this.get('dataConverter').csvToArray(issuesPerYear);
-      this.set('number_of_issues', formatedIssuesPerYear);
-    });
-  }
+  numberOfPayingCustomers: function () {
+    const customers = this.get('model').customers;
+    return this.get('dataConverter').csvToArray(customers);
+  }.property('model'),
+
+  numberOfIssues: function () {
+    const issues = this.get('model').issues;
+    const issuesFormated = this.get('dataConverter').csvToArray(issues);
+    return issuesFormated;
+  }.property('model')
 });
