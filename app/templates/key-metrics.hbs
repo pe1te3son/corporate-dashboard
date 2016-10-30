@@ -1,7 +1,14 @@
 <main class="mdl-layout__content mdl-color--grey-100">
   <div class="mdl-grid key-metrics-content">
-    {{#if number_of_issues}}
-      {{time-histogram data=number_of_issues}}
-    {{/if}}
+      {{time-histogram
+        data=numberOfIssues
+        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
+      }}
+
+      {{line-histogram
+        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
+        data=numberOfPayingCustomers
+        title="Number of paying customers"
+      }}
   </div>
 </main>
