@@ -4,7 +4,6 @@ export default Ember.Component.extend({
   didInsertElement () {
     const elId = this.$().attr('id');
     const dataArray = this.get('data');
-    console.log(dataArray);
     google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart () {

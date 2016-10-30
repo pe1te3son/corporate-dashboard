@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
     } else if (moment(a.date_submited).isAfter(b.date_submited)) {
       return -1;
     }
+    // if a === b
     return 0;
   })
 });
