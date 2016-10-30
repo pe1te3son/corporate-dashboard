@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   model () {
     let allData = {};
     const customersPerYear = new Promise((resolve, reject) => {
-      $.get('data/customers_per_year.csv')
+      $.get('data/number_of_paying_customers_per_year.csv')
         .done((data) => {
           allData.customers = data;
           resolve();
@@ -16,7 +16,7 @@ export default Ember.Route.extend({
     });
 
     const issuesPerYear = new Promise((resolve, reject) => {
-      $.get('data/issues_per_year.csv')
+      $.get('data/number_of_issues_per_year.csv')
         .done((data) => {
           allData.issues = data;
           resolve();
