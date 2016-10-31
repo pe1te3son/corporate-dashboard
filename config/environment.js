@@ -7,6 +7,13 @@ module.exports = function(environment) {
     rootURL: "/",
     locationType: "auto",
     dashboardAppGoogleApiKey: "AIzaSyCjI_zCU8lbou6wHIq66iZ8t-yFp2UWh4c",
+    firebase: {
+      apiKey: "AIzaSyAeBoj-b6_kYcO_6Q5HGW4Ly-fTB2gJzTE",
+      authDomain: "corporate-dashboard-babb3.firebaseapp.com",
+      databaseURL: "https://corporate-dashboard-babb3.firebaseio.com",
+      storageBucket: "corporate-dashboard-babb3.appspot.com",
+      messagingSenderId: "16098560508"
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
