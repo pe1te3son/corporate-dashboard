@@ -1,10 +1,25 @@
 <main class="mdl-layout__content mdl-color--grey-100">
   <div class="mdl-grid issues-content">
-    {{issues-data-table
-      tagName="table"
-      class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col"
-      id="issues-table"
-      data=sortedModel
-    }}
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col" id="issues-table">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Name</th>
+          <th class="mdl-data-table__cell--non-numeric">Email</th>
+          <th class="mdl-data-table__cell--non-numeric">Date</th>
+          <th class="mdl-data-table__cell--non-numeric">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sortedModel as |issue|}}
+          {{#issues-data-table action="removeModel" issueId=issue.id tagName="tr" class="issues-data"}}
+            <td class="mdl-data-table__cell--non-numeric">{{issue.customer_name}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{issue.email}}</td>
+            <td class="mdl-data-table__cell--non-numeric table-date">{{issue.date_submited}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{issue.issue_desc}}</td>
+          {{/issues-data-table}}
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </main>
