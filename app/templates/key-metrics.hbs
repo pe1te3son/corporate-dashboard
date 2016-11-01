@@ -5,10 +5,15 @@
         class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
       }}
 
-      {{line-histogram
-        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
-        data=numberOfPayingCustomers
-        title="Number of paying customers"
-      }}
+      {{log model.content}}
+      {{#if model}}
+        {{line-histogram
+          class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
+          data=model
+          title="Number of paying customers"
+          xAxisLegend="Date"
+          yAxisLegend="Customers"
+        }}
+      {{/if}}
   </div>
 </main>
