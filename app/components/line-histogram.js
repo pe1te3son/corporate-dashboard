@@ -36,7 +36,7 @@ export default Ember.Component.extend({
     height: 500,
     hAxis: {
       format: 'yyyy/MM/dd',
-      gridlines: {count: 15}
+      gridlines: {count: 13}
     },
     vAxis: {
       gridlines: {color: 'none'},
@@ -51,6 +51,10 @@ export default Ember.Component.extend({
   },
 
   buildChartData (data) {
-
+    let formatedData = [];
+    for (var i = 1; i < data.length; i++) {
+      formatedData.push([new Date(data[i].timestamp), data[i].paying_customers]);
+    }
+    return formatedData;
   }
 });
