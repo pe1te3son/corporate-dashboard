@@ -13,6 +13,11 @@
       </ul>
     </div>
   </header>
+
+  {{#if isLoading}}
+    {{main-spinner id="main-spinner"}}
+  {{/if}}
+
   <div class="dashboard-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
     <header class="dashboard-drawer-header">
       <img src="images/user.jpg" class="dashboard-avatar">
