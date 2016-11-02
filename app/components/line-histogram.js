@@ -1,60 +1,50 @@
 import Ember from 'ember';
+import $ from 'jquery';
 
 export default Ember.Component.extend({
-  chartData: null,
 
-  click (e) {
-    this.get('chartData').addRow([new Date(2015, 1, 5), 2]);
-    this.get('ComponentChart').draw(this.get('chartData'), this.get('chartOptions'));
-  },
-
-  didInsertElement () {
+  didRender () {
     const elId = this.$().attr('id');
+    const formatedChartData = this.get('data');
+    const _this = this;
 
-    if (this.get('title')) {
-      this.get('chartOptions').title = this.get('title');
+    this.setChartWidth();
+    google.charts.setOnLoadCallback(draw);
+
+    function draw () {
+      const data = new google.visualization.DataTable();
+      data.addColumn('date', _this.get('xAxisLegend'));
+      data.addColumn('number', _this.get('yAxisLegend'));
+      data.addRows(formatedChartData);
+
+      const chart = new google.charts[_this.get('chartType')](document.getElementById(elId));
+      chart.draw(data, _this.get('chartOptions'));
+
+      let currentTimestamp = new Date(formatedChartData[formatedChartData.length - 1][0]).getTime();
+      simulateUpdate();
+      function simulateUpdate () {
+        const min = 1;
+        const max = 1000;
+        data.addRow([new Date(currentTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
+        currentTimestamp += 86400000;
+        data.removeRow(0);
+        chart.draw(data, _this.get('chartOptions'));
+        setTimeout(simulateUpdate, 5000);
+      }
+
+      $(window).on('resize', () => {
+        try {
+          _this.setChartWidth();
+          chart.draw(data, _this.get('chartOptions'));
+        } catch (err) {
+          $(window).off('resize');
+        }
+      });
     }
-
-    const formatedChartData = this.buildChartData(this.get('data'));
-
-    this.set('formatedChartData', formatedChartData);
-
-    google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(() => {
-      this.set('chartData', new google.visualization.DataTable());
-      this.get('chartData').addColumn('date', this.get('xAxisLegend'));
-      this.get('chartData').addColumn('number', this.get('yAxisLegend'));
-
-      this.get('chartData').addRows(formatedChartData);
-
-      this.drawChart(elId, this.get('chartData'), this.get('chartOptions'));
-    });
   },
 
-  chartOptions: {
-    width: 1200,
-    height: 500,
-    hAxis: {
-      format: 'yyyy/MM/dd',
-      gridlines: {count: 13}
-    },
-    vAxis: {
-      gridlines: {color: 'none'},
-      minValue: 0
-    }
-  },
-
-  drawChart (containerId, dataTable, options) {
-    const element = document.getElementById(containerId);
-    this.set('ComponentChart', new google.visualization.LineChart(element));
-    this.get('ComponentChart').draw(dataTable, options);
-  },
-
-  buildChartData (data) {
-    let formatedData = [];
-    for (var i = 1; i < data.length; i++) {
-      formatedData.push([new Date(data[i].timestamp), data[i].paying_customers]);
-    }
-    return formatedData;
+  setChartWidth () {
+    const elWidth = this.$().width();
+    this.get('chartOptions').width = elWidth;
   }
 });
