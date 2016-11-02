@@ -45,6 +45,6 @@ export default Ember.Component.extend({
 
   setChartWidth () {
     const elWidth = this.$().width();
-    this.get('chartOptions').width = elWidth;
+    this.get('chartOptions').width = elWidth - 30;
   }
 });
