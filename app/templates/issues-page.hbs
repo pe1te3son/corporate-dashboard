@@ -17,6 +17,7 @@
             <td class="mdl-data-table__cell--non-numeric">{{issue.customer_name}}&nbsp;{{issue.customer_surname}}</td>
             <td class="mdl-data-table__cell--non-numeric">{{issue.email}}</td>
             <td class="mdl-data-table__cell--non-numeric table-date">{{time-formater issue.timestamp 'DD/MM/YYYY'}}</td>
+            <td class="mdl-data-table__cell--non-numeric issue-status {{if issue.is_closed 'issue-closed'}}">
               {{#if issue.is_closed}}Closed
               {{else}}Open
               {{/if}}
