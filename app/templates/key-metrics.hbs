@@ -1,19 +1,28 @@
 <main class="mdl-layout__content mdl-color--grey-100">
   <div class="mdl-grid key-metrics-content">
-      {{time-histogram
-        data=numberOfIssues
-        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
-      }}
 
-      {{log model.content}}
-      {{#if model}}
-        {{line-histogram
-          class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col"
-          data=model
-          title="Number of paying customers"
-          xAxisLegend="Date"
-          yAxisLegend="Customers"
-        }}
-      {{/if}}
+    {{#if model.issues}}
+      {{google-chart
+        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col google-chart"
+        data=(format-chart-data model.issues xdata="timestamp" ydata="issues")
+        xAxisLegend="Date"
+        yAxisLegend="Issues"
+        chartOptions=barChartOptions
+        chartType="Bar"
+      }}
+    {{/if}}
+
+    {{#if model.customers}}
+      {{google-chart
+        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col google-chart"
+        data=(format-chart-data model.customers xdata="timestamp" ydata="paying_customers")
+        title="Number of paying customers"
+        xAxisLegend="Date"
+        yAxisLegend="Customers"
+        chartOptions=lineChartOptions
+        chartType="Line"
+      }}
+    {{/if}}
+
   </div>
 </main>

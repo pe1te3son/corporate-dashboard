@@ -1,16 +1,31 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  dataConverter: Ember.inject.service('data-converter'),
+  lineChartOptions: {
+    height: 350,
+    legend: { position: 'none' },
+    chart: {
+      title: 'Paying customers per period'
+    },
+    hAxis: {
+      format: 'yyyy/MM/dd'
+    },
+    bars: 'vertical'
 
-  numberOfPayingCustomers: function () {
-    const customers = this.get('model').customers;
-    return this.get('dataConverter').csvToArray(customers);
-  }.property('model'),
+  },
+  barChartOptions: {
+    height: 250,
+    legend: { position: 'none' },
+    chart: {
+      title: 'Number of Issues per period'
+    },
+    hAxis: {
+      format: 'yyyy/MM/dd'
+    },
+    bars: 'vertical'
+  },
 
-  numberOfIssues: function () {
-    const issues = this.get('model').issues;
-    const issuesFormated = this.get('dataConverter').csvToArray(issues);
-    return issuesFormated;
-  }.property('model')
+  init () {
+    google.charts.load('current', {packages: ['corechart', 'bar', 'line']});
+  }
 });
