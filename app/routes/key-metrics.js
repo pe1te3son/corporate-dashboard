@@ -16,7 +16,7 @@ export default Ember.Route.extend({
     });
 
     const issuesPerYear = new Promise((resolve, reject) => {
-      $.get('data/number_of_issues_per_year.csv')
+      $.get('data/number_of_issues.json')
         .done((data) => {
           allData.issues = data;
           resolve();
