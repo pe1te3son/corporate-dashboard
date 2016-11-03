@@ -1,14 +1,13 @@
 import Ember from 'ember';
-import moment from 'npm:moment';
 
 export default Ember.Controller.extend({
   sortedModel: Ember.computed.sort('model', (a, b) => {
-    if (moment(a.date_submited).isBefore(b.date_submited)) {
+    if (a.get('timestamp') < b.get('timestamp')) {
       return 1;
-    } else if (moment(a.date_submited).isAfter(b.date_submited)) {
+    } else if (a.get('timestamp') > b.get('timestamp')) {
       return -1;
     }
     // if a === b
     return 0;
-  })
+  }),
 });
