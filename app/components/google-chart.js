@@ -20,16 +20,21 @@ export default Ember.Component.extend({
       const chart = new google.charts[_this.get('chartType')](document.getElementById(elId));
       chart.draw(data, _this.get('chartOptions'));
 
-      let currentTimestamp = new Date(formatedChartData[formatedChartData.length - 1][0]).getTime();
+      let latestTimestamp = new Date(formatedChartData[formatedChartData.length - 1][0]).getTime();
       simulateUpdate();
+
       function simulateUpdate () {
         const min = 1;
         const max = 1000;
-        data.addRow([new Date(currentTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
-        currentTimestamp += 86400000;
+        data.addRow([new Date(latestTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
+        latestTimestamp += 86400000;
         data.removeRow(0);
         chart.draw(data, _this.get('chartOptions'));
-        setTimeout(simulateUpdate, 5000);
+
+        setTimeout(
+          simulateUpdate,
+          Math.floor(Math.random() * (5000 + 1)) + 3000
+        );
       }
 
       $(window).on('resize', () => {
@@ -45,6 +50,6 @@ export default Ember.Component.extend({
 
   setChartWidth () {
     const elWidth = this.$().width();
-    this.get('chartOptions').width = elWidth - 30;
+    this.get('chartOptions').width = elWidth - 15;
   }
 });
