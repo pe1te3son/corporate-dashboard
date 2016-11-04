@@ -1,37 +1,38 @@
 import Ember from 'ember';
-import $ from 'jquery';
 
 export default Ember.Controller.extend({
-  sortedModel: null,
   sortAscending: false,
+  searchInput: '',
 
   init () {
     Ember.run.schedule('afterRender', () => {
-      this.sortStoreByDate();
+      this.sortStoreBy('timestamp');
     });
   },
 
-  sortStoreByDate (option) {
+  sortStoreBy (property) {
     return this.store.findAll('issue').then(res => {
       if (this.get('sortAscending')) {
-        return res.sortBy('timestamp');
+        return res.sortBy(property);
       }
-      return res.sortBy('timestamp').reverse();
+      return res.sortBy(property).reverse();
     }).then(sortedResponse => {
       this.set('sortAscending', !this.get('sortAscending'));
-      this.set('sortedModel', sortedResponse);
+      this.set('model', sortedResponse);
     });
   },
+
+  filteredContent: function () {
+    let filter = this.get('searchInput');
+
+    return this.get('model').filter(function (item, index, enumerable) {
+      return item.get('customer_name').toLowerCase().match(filter.toLowerCase()) || item.get('customer_surname').toLowerCase().match(filter.toLowerCase());
+    });
+  }.property('searchInput', 'model.@each'),
+
   actions: {
-    sortByDate (event) {
-      if ($(event.target).hasClass('mdl-data-table__header--sorted-descending')) {
-        $(event.target).removeClass('mdl-data-table__header--sorted-descending');
-        $(event.target).addClass('mdl-data-table__header--sorted-ascending');
-      } else {
-        $(event.target).removeClass('mdl-data-table__header--sorted-ascending');
-        $(event.target).addClass('mdl-data-table__header--sorted-descending');
-      }
-      this.sortStoreByDate();
+    sortByProperty (property) {
+      this.sortStoreBy(property);
     }
   }
 });

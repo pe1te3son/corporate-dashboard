@@ -1,13 +1,19 @@
 <main class="mdl-layout__content mdl-color--grey-100">
   <div class="mdl-grid issues-content">
-
+    {{input value=searchInput}}
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col" id="issues-table">
       <thead>
         <tr>
-          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending">Name</th>
-          <th class="mdl-data-table__cell--non-numeric">Email</th>
-          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending" 
-              onclick={{action "sortByDate"}}>
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
+              {{action "sortByProperty" "customer_surname"}}>
+            Name
+          </th>
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
+            {{action 'sortByProperty' 'email'}}>
+            Email
+          </th>
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
+              {{action "sortByProperty" "timestamp"}}>
               Date
           </th>
           <th class="mdl-data-table__cell--non-numeric">Status</th>
@@ -15,9 +21,9 @@
         </tr>
       </thead>
       <tbody>
-        {{#each sortedModel as |issue|}}
-          {{#issues-data-table action="removeModel" issueId=issue.id tagName="tr" class="issues-data"}}
-            <td class="mdl-data-table__cell--non-numeric">{{issue.customer_name}}&nbsp;{{issue.customer_surname}}</td>
+        {{#each filteredContent as |issue|}}
+          {{#issues-data-table issueId=issue.id tagName="tr" class="issues-data"}}
+            <td class="mdl-data-table__cell--non-numeric">{{issue.customer_surname}}&nbsp;{{issue.customer_name}}</td>
             <td class="mdl-data-table__cell--non-numeric">{{issue.email}}</td>
             <td class="mdl-data-table__cell--non-numeric table-date">{{time-formater issue.timestamp 'DD/MM/YYYY'}}</td>
             <td class="mdl-data-table__cell--non-numeric issue-status {{if issue.is_closed 'issue-closed'}}">
