@@ -1,6 +1,17 @@
 <main class="mdl-layout__content mdl-color--grey-100">
   <div class="mdl-grid issues-content">
-    {{input value=searchInput}}
+    <form class="mdl-cell mdl-cell--12-col" id="search-input-form">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="search-input">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          {{!-- <input class="mdl-textfield__input" type="text" id="search-input"> --}}
+          {{input value=searchInput class="mdl-textfield__input" type="text" id="search-input"}}
+          <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+        </div>
+      </div>
+    </form>
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col" id="issues-table">
       <thead>
         <tr>
