@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    loading (transition, route) {
+    loading (transition) {
       let controller = this.controllerFor('application');
       controller.set('isLoading', true);
 
