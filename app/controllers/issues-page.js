@@ -22,6 +22,16 @@ export default Ember.Controller.extend({
       this.set('sortedModel', sortedResponse);
     });
   },
+  actions: {
+    sortByDate (event) {
+      if ($(event.target).hasClass('mdl-data-table__header--sorted-descending')) {
+        $(event.target).removeClass('mdl-data-table__header--sorted-descending');
+        $(event.target).addClass('mdl-data-table__header--sorted-ascending');
+      } else {
+        $(event.target).removeClass('mdl-data-table__header--sorted-ascending');
+        $(event.target).addClass('mdl-data-table__header--sorted-descending');
+      }
+      this.sortStoreByDate();
     }
   }
 });
