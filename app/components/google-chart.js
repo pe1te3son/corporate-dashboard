@@ -3,8 +3,9 @@ import $ from 'jquery';
 
 export default Ember.Component.extend({
 
-  didRender () {
+  didInsertElement () {
     const elId = this.$().attr('id');
+    this.set('elId', elId);
     const formatedChartData = this.get('data');
     const _this = this;
 
@@ -28,15 +29,25 @@ export default Ember.Component.extend({
       }, 2000);
     }
   },
+
+  didRender () {
+    const _this = this;
+    $(window).resize(function () {
+      if (this.isResizing) {
+        clearTimeout(this.isResizing);
       }
 
-      $(window).on('resize', () => {
-        try {
-          _this.setChartWidth();
-          _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
-        } catch (err) {
-          $(window).off('resize');
-        }
+      this.isResizing = setTimeout(function () {
+        $(this).trigger('hasResized');
+      }, 400);
+    });
+
+    $(window).on('hasResized', function () {
+      _this.setChartWidth();
+      _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
+    });
+  },
+
   initializeUpdateSimulator () {
     const chartData = this.get('data');
     let latestTimestamp = new Date(chartData[chartData.length - 1][0]).getTime();
@@ -76,7 +87,7 @@ export default Ember.Component.extend({
   },
 
   setChartWidth () {
-    const elWidth = this.$().width();
+    const elWidth = $(`#${this.get('elId')}`).width();
     this.get('chartOptions').width = elWidth - 15;
   }
 });
