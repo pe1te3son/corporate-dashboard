@@ -12,24 +12,28 @@ export default Ember.Component.extend({
     google.charts.setOnLoadCallback(draw);
 
     function draw () {
-      const data = new google.visualization.DataTable();
-      data.addColumn('date', _this.get('xAxisLegend'));
-      data.addColumn('number', _this.get('yAxisLegend'));
-      data.addRows(formatedChartData);
+      _this.set('chartData', new google.visualization.DataTable());
+      _this.get('chartData').addColumn('date', _this.get('xAxisLegend'));
+      _this.get('chartData').addColumn('number', _this.get('yAxisLegend'));
+      _this.get('chartData').addRows(formatedChartData);
 
-      const chart = new google.charts[_this.get('chartType')](document.getElementById(elId));
-      chart.draw(data, _this.get('chartOptions'));
+      _this.set(
+        'chart',
+        new google.charts[_this.get('chartType')](document.getElementById(elId))
+      );
+      _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
 
       let latestTimestamp = new Date(formatedChartData[formatedChartData.length - 1][0]).getTime();
-      simulateUpdate();
 
+      simulateUpdate();
       function simulateUpdate () {
         const min = 1;
         const max = 1000;
-        data.addRow([new Date(latestTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
+        _this.get('chartData').addRow([new Date(latestTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
         latestTimestamp += 86400000;
-        data.removeRow(0);
-        chart.draw(data, _this.get('chartOptions'));
+        _this.get('chartData').removeRow(0);
+        _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
+        _this.notifyUpdate();
 
         setTimeout(
           simulateUpdate,
@@ -40,7 +44,7 @@ export default Ember.Component.extend({
       $(window).on('resize', () => {
         try {
           _this.setChartWidth();
-          chart.draw(data, _this.get('chartOptions'));
+          _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
         } catch (err) {
           $(window).off('resize');
         }
