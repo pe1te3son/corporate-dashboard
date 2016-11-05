@@ -23,22 +23,11 @@ export default Ember.Component.extend({
       );
       _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
 
-      let latestTimestamp = new Date(formatedChartData[formatedChartData.length - 1][0]).getTime();
-
-      simulateUpdate();
-      function simulateUpdate () {
-        const min = 1;
-        const max = 1000;
-        _this.get('chartData').addRow([new Date(latestTimestamp + 86400000), Math.floor(Math.random() * (max - min + 1)) + min]);
-        latestTimestamp += 86400000;
-        _this.get('chartData').removeRow(0);
-        _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
-        _this.notifyUpdate();
-
-        setTimeout(
-          simulateUpdate,
-          Math.floor(Math.random() * (5000 + 1)) + 3000
-        );
+      Ember.run.later(() => {
+        _this.initializeUpdateSimulator();
+      }, 2000);
+    }
+  },
       }
 
       $(window).on('resize', () => {
@@ -48,8 +37,42 @@ export default Ember.Component.extend({
         } catch (err) {
           $(window).off('resize');
         }
+  initializeUpdateSimulator () {
+    const chartData = this.get('data');
+    let latestTimestamp = new Date(chartData[chartData.length - 1][0]).getTime();
+    const min = 1;
+    const max = 1000;
+    const _this = this;
+    let sum = getsum();
+
+    function getsum () {
+      let sum = 0;
+      _this.get('data').forEach((item) => {
+        sum += item[1];
       });
+      return sum;
     }
+
+    function simulateUpdate () {
+      let value = _this.get('chartType') === 'Bar' ? Math.floor(Math.random() * (50 - min + 1)) + min : Math.floor(Math.random() * (max - min + 1)) + min;
+      _this.get('chartData').addRow([new Date(latestTimestamp + 86400000), value]);
+      _this.get('chartData').removeRow(0);
+      _this.get('chart').draw(_this.get('chartData'), _this.get('chartOptions'));
+
+      latestTimestamp += 86400000;
+      sum += value;
+
+      _this.sendAction('action', {
+        chartType: _this.get('chartType'),
+        payload: sum
+      });
+
+      setTimeout(
+        simulateUpdate,
+        Math.floor(Math.random() * (5000 + 1)) + 3000
+      );
+    }
+    simulateUpdate();
   },
 
   setChartWidth () {
