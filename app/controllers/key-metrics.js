@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  currentIssues: null,
+
   lineChartOptions: {
     height: 350,
     legend: { position: 'none' },
@@ -57,5 +59,13 @@ export default Ember.Controller.extend({
     });
     return formatedChartData;
   }.property('model.issues.@each'),
+
+  actions: {
+    chartHasUpdated (chartUpdateData) {
+      if (chartUpdateData.chartType === 'Bar') {
+        this.set('currentIssues', chartUpdateData.payload);
+      }
+    }
   }
+
 });
