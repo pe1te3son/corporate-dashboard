@@ -4,7 +4,7 @@
     {{#if model.issues}}
       {{google-chart
         class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col google-chart"
-        data=(format-chart-data model.issues xdata="timestamp" ydata="issues")
+        data=barChartData
         xAxisLegend="Date"
         yAxisLegend="Issues"
         chartOptions=barChartOptions
@@ -15,7 +15,7 @@
     {{#if model.customers}}
       {{google-chart
         class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col google-chart"
-        data=(format-chart-data model.customers xdata="timestamp" ydata="paying_customers")
+        data=lineChartData
         title="Number of paying customers"
         xAxisLegend="Date"
         yAxisLegend="Customers"
