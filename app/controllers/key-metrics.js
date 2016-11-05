@@ -28,5 +28,8 @@ export default Ember.Controller.extend({
   init () {
     // Load liberies to be used
     google.charts.load('current', {packages: ['corechart', 'bar', 'line']});
+    Ember.run.schedule('afterRender', () => {
+      componentHandler.upgradeAllRegistered();
+    });
   }
 });

@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   init () {
     Ember.run.schedule('afterRender', () => {
       this.sortStoreBy('timestamp');
+      componentHandler.upgradeAllRegistered();
     });
   },
 
