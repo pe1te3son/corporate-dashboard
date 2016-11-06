@@ -1,8 +1,13 @@
 import Ember from 'ember';
 
+/**
+ * @name key-metrics Controller
+ * @desc Key-metrics page Controller
+*/
 export default Ember.Controller.extend({
   currentIssues: null,
 
+  // Paying cutomers chart options
   lineChartOptions: {
     height: 350,
     legend: { position: 'none' },
@@ -15,6 +20,8 @@ export default Ember.Controller.extend({
     bars: 'vertical'
 
   },
+
+  // Number of issues chart options
   barChartOptions: {
     height: 250,
     legend: { position: 'none' },
@@ -31,6 +38,7 @@ export default Ember.Controller.extend({
     // Load liberies to be used
     google.charts.load('current', {packages: ['corechart', 'bar', 'line']});
     Ember.run.schedule('afterRender', () => {
+      // Register mdl lite listeners
       componentHandler.upgradeAllRegistered();
     });
   },
@@ -63,6 +71,7 @@ export default Ember.Controller.extend({
   actions: {
     chartHasUpdated (chartUpdateData) {
       if (chartUpdateData.chartType === 'Bar') {
+        // Display updated number of issues on page
         this.set('currentIssues', chartUpdateData.payload);
       }
     }
