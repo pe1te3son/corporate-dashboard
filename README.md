@@ -5,7 +5,14 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/01e862928b4847b78b7c0991c6856155)](https://www.codacy.com/app/2010janak2010/corporate-dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pe1te3son/corporate-dashboard&amp;utm_campaign=Badge_Grade)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 
-( in progress )
+ Developed a corporate dashboard application using a front-end MVC framework. Application uses JSON and csv mock data.
+ Application has: 
+
+ 1. A geospatial view, identifying the number of employees at various company locations.
+ 2. A “key metrics” view, containing components displaying: the number of open issues, a line chart reflecting number of paying customers over a period of time, and a bar chart reflecting number of reported issues over a period of time.
+ 3. A “data view” of all issues, with an appearance similar to a spreadsheet, that is sortable and filterable.
+
+![Screenshort](https://github.com/pe1te3son/cdn/blob/master/corporate-dashboard/corp-dash-github.jpg?raw=true)
 
 ## Prerequisites
 
@@ -54,3 +61,7 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+
+## Credits 
+
+[Google Charts](https://developers.google.com/chart/)
