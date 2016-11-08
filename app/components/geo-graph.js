@@ -3,8 +3,9 @@ import $ from 'jquery';
 
 /**
  * @name Geo-graph Component
- * @desc Displays map with employess in different locations
- * @param { array } data - array of data required by google charts
+ * @desc Displays map with employess in different locations. Simulates data
+ * update. Uses polling service to refetch required data
+ * @requires poller service
 */
 export default Ember.Component.extend({
   poller: Ember.inject.service('poller'),
@@ -20,7 +21,7 @@ export default Ember.Component.extend({
   },
   drawChart () {
     const _this = this;
-    return $.get('data/employees.csv')
+    return $.get(_this.get('dataSrc'))
       .then(response => {
         return _this.get('dataConverter').csvToArray(response);
       })
@@ -33,7 +34,7 @@ export default Ember.Component.extend({
   updateValues (array) {
     this.dataArray = array;
     for (var i = 1; i < this.dataArray.length; i++) {
-      let randomNumber = Math.floor(Math.random() * (99 + 1)) + 1;
+      let randomNumber = Math.floor(Math.random() * (499 + 1)) + 1;
       this.dataArray[i][1] += randomNumber;
     }
     return this.dataArray;
