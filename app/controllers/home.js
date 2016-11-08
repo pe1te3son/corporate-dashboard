@@ -11,5 +11,5 @@ export default Ember.Controller.extend({
 
   init () {
     this.set('apiKey', config.dashboardAppGoogleApiKey);
-  },
+  }
 });
