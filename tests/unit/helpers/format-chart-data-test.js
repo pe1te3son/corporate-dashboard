@@ -5,7 +5,7 @@ import { module, test } from 'qunit';
 module('Unit | Helper | format chart data');
 
 // Replace this with your real tests.
-test('it works', function(assert) {
+test('it works', function (assert) {
   let result = formatChartData([42]);
   assert.ok(result);
 });

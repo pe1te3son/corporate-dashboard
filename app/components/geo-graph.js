@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
+/**
+ * @name Geo-graph Component
+ * @desc Displays map with employess in different locations
+ * @param { array } data - array of data required by google charts
+*/
 export default Ember.Component.extend({
   poller: Ember.inject.service('poller'),
   dataConverter: Ember.inject.service('data-converter'),
