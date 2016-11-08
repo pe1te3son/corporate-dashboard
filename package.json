@@ -51,7 +51,8 @@
   "semistandard": {
     "globals": [
       "google",
-      "componentHandler"
+      "componentHandler",
+      "fetch"
     ],
     "ignore": [
       "node_modules",
