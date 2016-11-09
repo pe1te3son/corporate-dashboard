@@ -2,6 +2,7 @@ import Ember from 'ember';
 import $ from 'jquery';
 
 export default Ember.Route.extend({
+
   model () {
     let allData = {};
     const customersPerYear = new Promise((resolve, reject) => {
@@ -31,5 +32,13 @@ export default Ember.Route.extend({
     }).catch(() => {
       console.log('key metric route failed');
     });
+  },
+
+  afterModel: function () {
+    this.controllerFor('keyMetrics').startPolling();
+  },
+
+  deactivate: function () {
+    this.controllerFor('keyMetrics').stopPolling();
   }
 });
