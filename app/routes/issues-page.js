@@ -17,5 +17,13 @@ export default Ember.Route.extend({
         }, 500);
       });
     }
+  },
+
+  afterModel: function () {
+    this.controllerFor('issues-page').startPolling();
+  },
+
+  deactivate: function () {
+    this.controllerFor('issues-page').stopPolling();
   }
 });
