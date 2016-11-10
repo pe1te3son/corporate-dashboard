@@ -6,7 +6,7 @@
           <i class="material-icons">search</i>
         </label>
         <div class="mdl-textfield__expandable-holder">
-          {{input value=searchInput class="mdl-textfield__input" type="text" id="search-input"}}
+          {{input value=searchInput class="mdl-textfield__input" type="text" id="search-input" focus-in="searching" focus-out="notSearching"}}
           <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
         </div>
       </div>
@@ -14,34 +14,44 @@
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col" id="issues-table">
       <thead>
         <tr>
-          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
-              {{action "sortByProperty" "customer_surname"}}>
-            Name
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending wider-head"
+              {{action "sortByProperty" "customer_name"}}>
+            Customer
           </th>
           <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
             {{action 'sortByProperty' 'email'}}>
             Email
           </th>
           <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
-              {{action "sortByProperty" "timestamp"}}>
-              Date
+              {{action "sortByProperty" "submited"}}>
+              Submited
           </th>
           <th class="mdl-data-table__cell--non-numeric">Status</th>
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending"
+              {{action "sortByProperty" "closed_at"}}>
+              Closed
+          </th>
+          <th class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-ascending wider-head"
+              {{action "sortByProperty" "employee_name"}}>
+            Employee
+          </th>
           <th class="mdl-data-table__cell--non-numeric">Description</th>
         </tr>
       </thead>
       <tbody>
         {{#each filteredContent as |issue|}}
           {{#issues-data-table issueId=issue.id tagName="tr" class="issues-data"}}
-            <td class="mdl-data-table__cell--non-numeric">{{issue.customer_surname}}&nbsp;{{issue.customer_name}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{issue.customer_name}}</td>
             <td class="mdl-data-table__cell--non-numeric">{{issue.email}}</td>
-            <td class="mdl-data-table__cell--non-numeric table-date">{{time-formater issue.timestamp 'DD/MM/YYYY'}}</td>
+            <td class="mdl-data-table__cell--non-numeric table-date">{{time-formater issue.submited 'DD/MM/YYYY'}}</td>
             <td class="mdl-data-table__cell--non-numeric issue-status {{if issue.is_closed 'issue-closed'}}">
               {{#if issue.is_closed}}Closed
               {{else}}Open
               {{/if}}
             </td>
-            <td class="mdl-data-table__cell--non-numeric">{{issue.issue_desc}}</td>
+            <td class="mdl-data-table__cell--non-numeric table-date">{{time-formater issue.closed_at 'DD/MM/YYYY'}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{issue.employee_name}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{issue.desc}}</td>
           {{/issues-data-table}}
         {{/each}}
       </tbody>
