@@ -1,10 +1,9 @@
 import Ember from 'ember';
+import $ from 'jquery';
 
 export default Ember.Route.extend({
   model () {
-    return this.store.findAll('issue').then(res => {
-      return res;
-    });
+    return $.get('data/issues.json');
   },
 
   actions: {
