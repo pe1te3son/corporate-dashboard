@@ -7,7 +7,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   chartDatahasChanged: function () {
-    console.log('dataChanged');
     let data = google.visualization.arrayToDataTable(this.get('data'));
     this.get('chart').draw(data);
   }.observes('data'),
